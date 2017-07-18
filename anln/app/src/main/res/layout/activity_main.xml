@@ -1,45 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     android:orientation="vertical"
     tools:context="com.example.anln.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="不知道要在这里写什么好"
-        android:layout_marginTop="50dp"
-        android:textSize="30dp"
-        android:layout_marginLeft="20dp"/>
+        android:text="@string/biaoyu_activity_main"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@color/red"
+        android:id="@+id/textView" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
         android:text="next view"
-        android:layout_marginLeft="120dp"
+        android:background="@drawable/chicken"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:id="@+id/button_first_activity_main" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="click me"
-        android:layout_marginLeft="125dp"
+        android:layout_gravity="center"
         android:id="@+id/button_second_activity_main" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="exit"
-        android:layout_marginLeft="126dp"
+        android:text="don't touch me"
+        android:layout_gravity="center"
         android:textColor="@color/colorWhite"
         android:background="@color/colorAccent"
         android:shadowColor="@color/colorPrimary"
         android:id="@+id/button_third_activity_main" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText2" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/pig"
+        android:layout_gravity="right"
+        android:id="@+id/imageView" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekbar"/>
 
 </LinearLayout>

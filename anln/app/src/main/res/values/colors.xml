@@ -6,4 +6,5 @@
     <color name="splash_background">#ccc8f2</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorYellowLight">#f5f3c9</color>
+    <color name="red">#fc0000</color>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -15,6 +16,8 @@ public class SplashActivity extends Activity{
     public static final String TITLE = "title";
     public static final String USER_INFO = "userInfo";
     public static final int REQUEST_CODE = 98;
+    private TextView mTextView;
+    private static final String TAG = SplashActivity.class.getSimpleName();
     Handler mHandler = new Handler();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +25,8 @@ public class SplashActivity extends Activity{
         setContentView(R.layout.activity_splash);
 
 
-        TextView textView = (TextView) findViewById(R.id.title_text_view);
-        final String title = textView.getText().toString();
+        mTextView = (TextView) findViewById(R.id.title_text_view);
+        final String title = mTextView.getText().toString();
 
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -36,9 +39,23 @@ public class SplashActivity extends Activity{
                 //startActivity(intent);
                 startActivityForResult(intent, REQUEST_CODE);
             }
-        },2000);
+        },1000);
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG,"requestcode:" + requestCode + ",resultcode:" + requestCode);
 
+        if(requestCode == REQUEST_CODE && resultCode == MainActivity.RESULT_CODE)
+        {
+            if(data != null)
+            {
+                String title = data.getStringExtra(TITLE);
+                mTextView.setText(title);
+            }
+
+        }
+    }
 }
