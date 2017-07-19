@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,27 +27,27 @@ public class ListViewDemoActivity extends Activity {
         mPhoneBook = (ListView) findViewById(R.id.list_view);
 
         mUserInfos = new ArrayList<>();
-        mUserInfos.add(new UserInfo("jiangtingting"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
-        mUserInfos.add(new UserInfo("zengshuaizhi"));
+        mUserInfos.add(new UserInfo("jtt"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
+        mUserInfos.add(new UserInfo("zsz"));
         final PhoneBookAdapter phoneBookAdapter = new PhoneBookAdapter(ListViewDemoActivity.this, mUserInfos);
 
 
@@ -59,38 +58,35 @@ public class ListViewDemoActivity extends Activity {
                 if(i == 0)
                 {
                     mUserInfos.clear();
-                    mUserInfos.add(new UserInfo("我是江婷婷"));
+                    mUserInfos.add(new UserInfo("JTT"));
 
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
-                    mUserInfos.add(new UserInfo("zengshuaizhi"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
+                    mUserInfos.add(new UserInfo("zsz"));
 
                     phoneBookAdapter.refreshData(mUserInfos);
 
                 }
 
-                if (mUserInfos.get(i).getUserName() == "zengshuaizhi") {
-                    Toast.makeText(ListViewDemoActivity.this, mUserInfos.get(i).getUserName(), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(ListViewDemoActivity.this, mUserInfos.get(i).getUserName(), Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(ListViewDemoActivity.this, mUserInfos.get(i).getUserName(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -98,7 +94,7 @@ public class ListViewDemoActivity extends Activity {
         mPhoneBook.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (mUserInfos.get(i).getUserName() == "zengshuaizhi") {
+                if (mUserInfos.get(i).getUserName() == "zsz") {
                     Toast.makeText(ListViewDemoActivity.this, "我喜欢jiangtingting", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ListViewDemoActivity.this,"我喜欢zengshuaizhi", Toast.LENGTH_SHORT).show();
@@ -113,8 +109,6 @@ public class ListViewDemoActivity extends Activity {
 
 
     }
-
-
 
 
 }

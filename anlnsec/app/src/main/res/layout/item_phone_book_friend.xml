@@ -7,21 +7,21 @@
 
     <ImageView
         android:id="@+id/head_photo"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/hema"/>
 
     <TextView
         android:id="@+id/name_text_view"
-        android:layout_width="300dp"
+        android:layout_width="50dp"
         android:layout_height="100dp"
         android:textSize="30sp"
-        android:layout_marginLeft="10dp"
-        android:paddingTop="25dp"
-        android:text="jiangtingting"
+        android:gravity="center"
+        android:text="jtt"
+        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/head_photo"
-        android:layout_toEndOf="@+id/head_photo" />
+        android:layout_toEndOf="@+id/head_photo"
+        android:layout_alignBottom="@+id/head_photo"/>
 
 
 </RelativeLayout>
