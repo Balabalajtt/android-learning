@@ -33,7 +33,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sure"
+        android:text="Start"
         android:layout_gravity="center"
         android:textAllCaps="false"/>
 
@@ -54,5 +54,14 @@
         android:src="@drawable/banma"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"/>
+    <Button
+        android:id="@+id/hint_button"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorAccent"
+        android:visibility="invisible"
+        android:text="点击上方小动物\n点点点！"/>
 
 </LinearLayout>
