@@ -10,12 +10,19 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity{
 
 
     private String expresion = "";
     private String answer = "";
+    private String num1;
+    private String num2;
+
+    private String expresion1;
+    private String expresion2;
+    private String expresionAns;
 
     private TextView textView;
 
@@ -245,8 +252,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,"计算功能暂未实现",Toast.LENGTH_SHORT).show();
-                expresion = mString;
-                textView.setText(expresion);
+                //expresion = mString;
+                Count1 ();
+                //textView.setText(expresion);
             }
         });
 
@@ -259,6 +267,70 @@ public class MainActivity extends AppCompatActivity{
             expresion = "";
             textView.setText(expresion);
         }
+    }
+
+
+    public boolean Count1 ()
+    {
+        num1 = num2 = "";
+        for(int i = 0, index1 = 0,index2; i<expresion.length(); i++)
+        {
+            char l = expresion.charAt(i);
+            if(l == '+'|| l == '-' || l == '*' || l == '/')
+            {
+                if(l=='*'||l=='/')
+                {
+                    num1 = num2;
+                    num2 = "";
+                    for(i = i+1;i<expresion.length();i++)
+                    {
+                        char a = expresion.charAt(i);
+                        if(a == '+'|| a == '-' || a == '*' || a == '/')
+                        {
+                            index2 = i-1;
+                            if (l == '*')
+                            {
+                                answer = String.valueOf(Float.parseFloat(num1)*Float.parseFloat(num2));
+                                expresion1 = expresion.substring(0,index1+1);
+                                expresion2 = expresion.substring(index2+1,expresion.length());
+                                expresionAns =  expresion1 + answer + expresion2;
+                                Toast.makeText(this,expresionAns,Toast.LENGTH_LONG).show();
+                                num1 = num2 = "";
+                            }
+                            else if (l == '/')
+                            {
+                                if(!num2.equals("0"))
+                                {
+                                    answer = String.valueOf(Float.parseFloat(num1) / Float.parseFloat(num2));
+                                    expresion = expresion.substring(0, index1) + answer + expresion.substring(index2, expresion.length() - 1);
+                                    num1 = num2 = "";
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            num2 = num2 + String.valueOf(a);
+                        }
+                    }
+                }
+                else
+                {
+                    index1 = i;
+                    num2 = "";
+                }
+            }
+            else
+            {
+                num2 = num2 + String.valueOf(l);
+            }
+
+        }
+        return true;
     }
 
 
