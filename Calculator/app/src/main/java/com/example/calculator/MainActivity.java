@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -311,8 +313,29 @@ public strictfp class MainActivity extends AppCompatActivity{
                     if(nei==0)return;
 
 
-
                     quwei();
+
+                    if(chushi()==false)
+                    {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                        dialog.setTitle("真会玩");
+                        dialog.setMessage("怎么能这么欺负小数点！");
+                        dialog.setCancelable(false);
+                        dialog.setPositiveButton("知道了，对不起我傻", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        dialog.show();
+                        flag = 1;
+                        textView.setText("错误");
+                        expresion="";
+                        return;
+                    }
+
+
+
                     while (chengchu()) {
                         if (Count1() == false)
                         {
@@ -447,7 +470,11 @@ public strictfp class MainActivity extends AppCompatActivity{
         //Toast.makeText(this,""+i+n+j,Toast.LENGTH_LONG).show();
         if(a=='*')
         {
-            answer = String.valueOf(Float.parseFloat(expresion.substring(i, n)) * Float.parseFloat(expresion.substring(n + 1, j + 1)));
+            BigDecimal num1 = new BigDecimal(expresion.substring(i, n));
+            BigDecimal num2 = new BigDecimal(expresion.substring(n + 1, j + 1));
+            answer = "" + num1.multiply(num2);
+            //answer = String.valueOf(Float.parseFloat(expresion.substring(i, n)) * Float.parseFloat(expresion.substring(n + 1, j + 1)));
+
         }
         else
         {
@@ -457,7 +484,11 @@ public strictfp class MainActivity extends AppCompatActivity{
             }
             else
             {
-                answer = String.valueOf(Float.parseFloat(expresion.substring(i, n)) / Float.parseFloat(expresion.substring(n + 1, j + 1)));
+
+                BigDecimal num1 = BigDecimal.valueOf(Double.parseDouble(expresion.substring(i, n)));
+                BigDecimal num2 = BigDecimal.valueOf(Double.parseDouble(expresion.substring(n + 1, j + 1)));
+                answer = "" + num1.divide(num2,10, BigDecimal.ROUND_HALF_UP).doubleValue();
+//                answer = String.valueOf(Float.parseFloat(expresion.substring(i, n)) / Float.parseFloat(expresion.substring(n + 1, j + 1)));
             }
         }
 
@@ -538,11 +569,19 @@ public strictfp class MainActivity extends AppCompatActivity{
         String answer;
         if(a=='+')
         {
-            answer = String.valueOf(Float.parseFloat(expresion.substring(0, i)) + Float.parseFloat(expresion.substring(i+1, j + 1)));
+
+            BigDecimal num1 = new BigDecimal(expresion.substring(0,i));
+            BigDecimal num2 = new BigDecimal(expresion.substring(i+1,j+1));
+            answer = "" + num1.add(num2);
+            //answer = String.valueOf(Float.parseFloat(expresion.substring(0, i)) + Float.parseFloat(expresion.substring(i+1, j + 1)));
         }
         else
         {
-            answer = String.valueOf(Float.parseFloat(expresion.substring(0, i)) - Float.parseFloat(expresion.substring(i+1, j + 1)));
+
+            BigDecimal num1 = new BigDecimal(expresion.substring(0,i));
+            BigDecimal num2 = new BigDecimal(expresion.substring(i + 1, j + 1));
+            answer = "" + num1.subtract(num2);
+            //answer = String.valueOf(Float.parseFloat(expresion.substring(0, i)) - Float.parseFloat(expresion.substring(i+1, j + 1)));
         }
 
         expresion = answer + expresion.substring(j+1,expresion.length());
@@ -574,4 +613,48 @@ public strictfp class MainActivity extends AppCompatActivity{
         }
         return false;
     }
+
+    public boolean chushi()
+    {
+        for(int i = 0;i<expresion.length()-1; i++)
+        {
+            char a=expresion.charAt(i);
+            if(a=='.')
+            {
+                if(expresion.length()==1)
+                {
+                    return false;
+                }
+                else if(i==0)
+                {
+                    char b = expresion.charAt(i+1);
+                    if(b=='+'||b=='-'||b=='*'||b=='/')
+                    {
+                        return false;
+                    }
+                }
+                else if(i==expresion.length()-1)
+                {
+                    char b = expresion.charAt(i-1);
+                    if(b=='+'||b=='-'||b=='*'||b=='/')
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    char m = expresion.charAt(i+1);
+                    char n = expresion.charAt(i-1);
+                    if((m=='+'||m=='-'||m=='*'||m=='/')&&(n=='+'||n=='-'||n=='*'||n=='/'))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
+
 }
