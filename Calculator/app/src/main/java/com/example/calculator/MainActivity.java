@@ -330,7 +330,7 @@ public strictfp class MainActivity extends AppCompatActivity{
                     if(nei==0)return;
                     if(expresion.equals("-"))return;
 
-
+                    quwei();
                     if(chushi()==false)
                     {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -350,7 +350,7 @@ public strictfp class MainActivity extends AppCompatActivity{
                         return;
                     }
 
-                    quwei();
+
 
                     while (chengchu()) {
                         if (Count1() == false)
