@@ -1,10 +1,14 @@
 package com.example.calculator;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,18 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class MainActivity extends AppCompatActivity{
+public strictfp class MainActivity extends AppCompatActivity{
 
 
-    private String expresion = "";
-    private String answer = "";
-    private String num1;
-    private String num2;
+    String expresion = "";
 
-    private String expresion1;
-    private String expresion2;
-    private String expresionAns;
-
+    private int flag=0;
     private TextView textView;
 
     private Button equalButton;
@@ -55,9 +53,16 @@ public class MainActivity extends AppCompatActivity{
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(flag==1)
+                    {
+                        expresion = "";
+                        textView.setText(expresion);
+                        flag = 0;
+                    }
                     zanshi();
                     expresion = expresion + btn.getText().toString();
                     textView.setText(expresion);
+
                 }
             });
         }
@@ -67,6 +72,12 @@ public class MainActivity extends AppCompatActivity{
         pointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(flag==1)
+                {
+                    expresion = "";
+                    textView.setText(expresion);
+                    flag = 0;
+                }
                 zanshi();
                 int flag=0;
                 for(int i = expresion.length()-1; i>=0; i--)
@@ -98,6 +109,12 @@ public class MainActivity extends AppCompatActivity{
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(flag==1)
+                {
+                    expresion = "";
+                    textView.setText(expresion);
+                    flag = 0;
+                }
                 zanshi();
                 if(expresion.equals(""))
                 {
@@ -133,6 +150,12 @@ public class MainActivity extends AppCompatActivity{
         subButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(flag==1)
+                {
+                    expresion = "";
+                    textView.setText(expresion);
+                    flag = 0;
+                }
                 zanshi();
                 if(expresion.equals(""))
                 {
@@ -159,6 +182,12 @@ public class MainActivity extends AppCompatActivity{
         mulButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(flag==1)
+                {
+                    expresion = "";
+                    textView.setText(expresion);
+                    flag = 0;
+                }
                 zanshi();
                 if(expresion.equals(""))
                 {
@@ -194,6 +223,12 @@ public class MainActivity extends AppCompatActivity{
         divButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(flag==1)
+                {
+                    expresion = "";
+                    textView.setText(expresion);
+                    flag = 0;
+                }
                 zanshi();
                 if(expresion.equals(""))
                 {
@@ -232,6 +267,12 @@ public class MainActivity extends AppCompatActivity{
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(flag==1)
+                {
+                    expresion = "";
+                    textView.setText(expresion);
+                    flag = 0;
+                }
                 zanshi();
                 if(!expresion.equals(""))
                 expresion = expresion.substring(0,expresion.length()-1);
@@ -241,6 +282,12 @@ public class MainActivity extends AppCompatActivity{
         deleteButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if(flag==1)
+                {
+                    expresion = "";
+                    textView.setText(expresion);
+                    flag = 0;
+                }
                 expresion = "";
                 textView.setText(expresion);
                 return true;
@@ -251,10 +298,59 @@ public class MainActivity extends AppCompatActivity{
         equalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"计算功能暂未实现",Toast.LENGTH_SHORT).show();
-                //expresion = mString;
-                Count1 ();
-                //textView.setText(expresion);
+                if (flag == 0) {
+                    int nei=0;
+                    for(int i = 0; i<expresion.length(); i++)
+                    {
+                        char a = expresion.charAt(i);
+                        if(a=='+'||a=='-'||a=='*'||a=='/')
+                        {
+                            nei=1;break;
+                        }
+                    }
+                    if(nei==0)return;
+
+
+
+                    quwei();
+                    while (chengchu()) {
+                        if (Count1() == false)
+                        {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                            dialog.setTitle("运算错误");
+                            dialog.setMessage("是不是傻，0不能作为除数！");
+                            dialog.setCancelable(false);
+                            dialog.setPositiveButton("知道了，对不起我傻", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+                            dialog.show();
+                            flag = 1;
+                            textView.setText("错误");
+                            expresion="";
+                            return;
+                        }
+                        if (!judge()) {
+                            break;
+                        }
+                    }
+
+                    fuhao();
+                    while (!zuihou()) {
+                        Count2();
+                        fuhao();
+                    }
+                    //Toast.makeText(MainActivity.this, "cheng" + expresion, Toast.LENGTH_SHORT).show();
+
+                    flag = 1;
+                    textView.setText(expresion);
+
+                    //expresion = mString;
+//                Count1 ();
+                    //textView.setText(expresion);
+                }
             }
         });
 
@@ -269,69 +365,213 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-
-    public boolean Count1 ()
+    public void quwei()
     {
-        num1 = num2 = "";
-        for(int i = 0, index1 = 0,index2; i<expresion.length(); i++)
+        for(int i = expresion.length()-1; i>=0; i--)
         {
-            char l = expresion.charAt(i);
-            if(l == '+'|| l == '-' || l == '*' || l == '/')
+            char a = expresion.charAt(i);
+            if (a == '+' || a == '-' || a == '*' || a == '/')
             {
-                if(l=='*'||l=='/')
-                {
-                    num1 = num2;
-                    num2 = "";
-                    for(i = i+1;i<expresion.length();i++)
-                    {
-                        char a = expresion.charAt(i);
-                        if(a == '+'|| a == '-' || a == '*' || a == '/')
-                        {
-                            index2 = i-1;
-                            if (l == '*')
-                            {
-                                answer = String.valueOf(Float.parseFloat(num1)*Float.parseFloat(num2));
-                                expresion1 = expresion.substring(0,index1+1);
-                                expresion2 = expresion.substring(index2+1,expresion.length());
-                                expresionAns =  expresion1 + answer + expresion2;
-                                Toast.makeText(this,expresionAns,Toast.LENGTH_LONG).show();
-                                num1 = num2 = "";
-                            }
-                            else if (l == '/')
-                            {
-                                if(!num2.equals("0"))
-                                {
-                                    answer = String.valueOf(Float.parseFloat(num1) / Float.parseFloat(num2));
-                                    expresion = expresion.substring(0, index1) + answer + expresion.substring(index2, expresion.length() - 1);
-                                    num1 = num2 = "";
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            num2 = num2 + String.valueOf(a);
-                        }
-                    }
-                }
-                else
-                {
-                    index1 = i;
-                    num2 = "";
-                }
+                expresion = expresion.substring(0, expresion.length() - 2);
             }
             else
             {
-                num2 = num2 + String.valueOf(l);
+                break;
             }
+        }
+    }
 
+    public boolean Count1 ()
+    {
+        String answer;
+        String expresionAns;
+        char a='*',b;
+        int n,i,j;
+        //找到乘除号
+        //25*47
+        //i n j
+        for(n=0; n<expresion.length(); n++)
+        {
+            a = expresion.charAt(n);
+            if(a=='*'||a=='/')
+            {
+                break;
+            }
+        }
+
+        for(i=n-1; i>=0; i--)
+        {
+            b = expresion.charAt(i);
+            if(b=='+')
+            {
+                i++;
+                break;
+            }
+            else if(b=='-')
+            {
+                if(i==0 || (i!=0 && (expresion.charAt(i-1)=='*'||expresion.charAt(i-1)=='/')))
+                {
+                    break;
+                }
+                else
+                {
+                    i++;
+                    break;
+                }
+            }
+            else if(i==0)
+            {
+                break;
+            }
+        }
+
+        for(j=n+1;j<expresion.length();j++)
+        {
+            b = expresion.charAt(j);
+            if(j==expresion.length()-1)
+            {
+                break;
+            }
+            else if(b=='+'||b=='-'||b=='*'||b=='/')
+            {
+                if(b=='-' && (expresion.charAt(j-1)=='*'||expresion.charAt(j-1)=='/'))
+                {
+                    continue;
+                }
+                j--;
+                break;
+            }
+        }
+
+
+        //Toast.makeText(this,""+i+n+j,Toast.LENGTH_LONG).show();
+        if(a=='*')
+        {
+            answer = String.valueOf(Float.parseFloat(expresion.substring(i, n)) * Float.parseFloat(expresion.substring(n + 1, j + 1)));
+        }
+        else
+        {
+            if(Float.parseFloat(expresion.substring(n + 1, j + 1))==0)
+            {
+                return false;
+            }
+            else
+            {
+                answer = String.valueOf(Float.parseFloat(expresion.substring(i, n)) / Float.parseFloat(expresion.substring(n + 1, j + 1)));
+            }
+        }
+
+
+        if(i!=0)
+        {
+            expresionAns = expresion.substring(0, i) + answer;
+        }
+        else
+        {
+            expresionAns = answer;
+        }
+        if(j<expresion.length()-1)
+        {
+            expresionAns = expresionAns + expresion.substring(j + 1, expresion.length());
+        }
+
+        //Toast.makeText(this,expresionAns,Toast.LENGTH_LONG).show();
+        expresion = expresionAns;
+        return true;
+
+//        Toast.makeText(this,"此时"+expresion,Toast.LENGTH_LONG).show();
+    }
+
+    public boolean judge()
+    {
+        for(int i=0; i<expresion.length();i++)
+        {
+            char a = expresion.charAt(i);
+            if(a=='*'||a=='/')
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void fuhao()
+    {
+        expresion = expresion.replaceAll("--","+");
+        while(expresion.contains("++"))
+        {
+            expresion = expresion.replaceAll("\\u002B\\u002B", "+");
+        }
+        expresion = expresion.replaceAll("\\u002B-","-");
+
+    }
+
+
+
+
+    public void Count2()
+    {
+        int i,j;
+        char a = '+';
+        for(i=0; i<expresion.length(); i++)
+        {
+            a = expresion.charAt(i);
+            if((a=='+'||a=='-')&&i!=0)
+            {
+                break;
+            }
+        }
+        for(j = i+1;j<expresion.length();j++)
+        {
+            char b = expresion.charAt(j);
+            if(j==expresion.length()-1||(b=='+'||b=='-'))
+            {
+                if(j!=expresion.length()-1)
+                {
+                    j--;
+                }
+                break;
+            }
+        }
+
+        String answer;
+        if(a=='+')
+        {
+            answer = String.valueOf(Float.parseFloat(expresion.substring(0, i)) + Float.parseFloat(expresion.substring(i+1, j + 1)));
+        }
+        else
+        {
+            answer = String.valueOf(Float.parseFloat(expresion.substring(0, i)) - Float.parseFloat(expresion.substring(i+1, j + 1)));
+        }
+
+        expresion = answer + expresion.substring(j+1,expresion.length());
+        Toast.makeText(this,expresion,Toast.LENGTH_LONG);
+    }
+
+
+    public boolean zuihou()
+    {
+        for(int i=0;i<expresion.length();i++)
+        {
+            if(i!=0&&(expresion.charAt(i)=='+'||expresion.charAt(i)=='-'))
+            {
+                return false;
+            }
         }
         return true;
     }
 
-
+    public boolean chengchu()
+    {
+        for(int i = 0;i<expresion.length();i++)
+        {
+            char a = expresion.charAt(i);
+            if(a=='*'||a=='/')
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
