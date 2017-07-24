@@ -3,9 +3,11 @@ package com.example.calculator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +43,12 @@ public strictfp class MainActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar!=null)
+        {
+            actionBar.hide();
+        }
 
         textView = (TextView) findViewById(R.id.up_text_view);
 
@@ -113,7 +121,6 @@ public strictfp class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(flag==1)
                 {
-                    expresion = "";
                     textView.setText(expresion);
                     flag = 0;
                 }
@@ -138,6 +145,11 @@ public strictfp class MainActivity extends AppCompatActivity{
                         textView.setText(expresion);
                     }
 
+
+                }
+                else if(l == '-' &&expresion.length()==1)
+                {
+                    return;
                 }
                 else
                 {
@@ -154,7 +166,6 @@ public strictfp class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(flag==1)
                 {
-                    expresion = "";
                     textView.setText(expresion);
                     flag = 0;
                 }
@@ -186,7 +197,6 @@ public strictfp class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(flag==1)
                 {
-                    expresion = "";
                     textView.setText(expresion);
                     flag = 0;
                 }
@@ -212,6 +222,10 @@ public strictfp class MainActivity extends AppCompatActivity{
                     }
 
                 }
+                else if(l == '-' &&expresion.length()==1)
+                {
+                    return;
+                }
                 else
                 {
                     expresion = expresion.substring(0,expresion.length()-1);
@@ -227,7 +241,6 @@ public strictfp class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(flag==1)
                 {
-                    expresion = "";
                     textView.setText(expresion);
                     flag = 0;
                 }
@@ -253,6 +266,10 @@ public strictfp class MainActivity extends AppCompatActivity{
                     }
 
                 }
+                else if(l == '-' &&expresion.length()==1)
+                {
+                    return;
+                }
                 else
                 {
                     expresion = expresion.substring(0,expresion.length()-1);
@@ -261,7 +278,6 @@ public strictfp class MainActivity extends AppCompatActivity{
                 }
             }
         });
-
 
 
 
@@ -310,10 +326,10 @@ public strictfp class MainActivity extends AppCompatActivity{
                             nei=1;break;
                         }
                     }
+
                     if(nei==0)return;
+                    if(expresion.equals("-"))return;
 
-
-                    quwei();
 
                     if(chushi()==false)
                     {
@@ -334,7 +350,7 @@ public strictfp class MainActivity extends AppCompatActivity{
                         return;
                     }
 
-
+                    quwei();
 
                     while (chengchu()) {
                         if (Count1() == false)
@@ -369,7 +385,7 @@ public strictfp class MainActivity extends AppCompatActivity{
 
                     flag = 1;
                     textView.setText(expresion);
-
+                    Log.i("33","55");
                     //expresion = mString;
 //                Count1 ();
                     //textView.setText(expresion);
@@ -390,18 +406,12 @@ public strictfp class MainActivity extends AppCompatActivity{
 
     public void quwei()
     {
-        for(int i = expresion.length()-1; i>=0; i--)
+        char a;
+        while((a = expresion.charAt(expresion.length()-1))=='+'||a=='-'||a=='*'||a=='/')
         {
-            char a = expresion.charAt(i);
-            if (a == '+' || a == '-' || a == '*' || a == '/')
-            {
-                expresion = expresion.substring(0, expresion.length() - 2);
-            }
-            else
-            {
-                break;
-            }
+            expresion = expresion.substring(0,expresion.length()-1);
         }
+
     }
 
     public boolean Count1 ()
@@ -616,7 +626,7 @@ public strictfp class MainActivity extends AppCompatActivity{
 
     public boolean chushi()
     {
-        for(int i = 0;i<expresion.length()-1; i++)
+        for(int i = 0;i<expresion.length(); i++)
         {
             char a=expresion.charAt(i);
             if(a=='.')
