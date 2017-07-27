@@ -12,12 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
         <TextView
-
-            android:background="@color/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="账户"
-            android:textColor="#fff"
             android:textSize="20sp"/>
         <EditText
             android:id="@+id/account"
@@ -30,12 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
         <TextView
-
-            android:background="@color/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="密码"
-            android:textColor="#fff"
             android:textSize="20sp"/>
         <EditText
             android:id="@+id/password"
@@ -50,8 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#fff"
-        android:background="@color/colorAccent"
         android:text="登录"/>
 
 </LinearLayout>
