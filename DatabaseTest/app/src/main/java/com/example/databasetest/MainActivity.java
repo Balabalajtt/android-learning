@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMyDataBaseHelper = new MyDataBaseHelper(this, "BookStore.db", null, 1);
+        mMyDataBaseHelper = new MyDataBaseHelper(this, "BookStore.db", null, 2);
 
         Button createButton = (Button) findViewById(R.id.create_button);
         Button addButton = (Button) findViewById(R.id.add_button);
