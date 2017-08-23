@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "账号或密码有误", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "账号密码有误", Toast.LENGTH_LONG).show();
                 }
             }
         });
