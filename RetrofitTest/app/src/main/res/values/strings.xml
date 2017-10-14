@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RetrofitTest</string>
+    <string name="user_name">square</string>
+    <string name="repo">retrofit</string>
+</resources>
