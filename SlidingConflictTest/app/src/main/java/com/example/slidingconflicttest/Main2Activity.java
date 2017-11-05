@@ -29,7 +29,7 @@ public class Main2Activity extends AppCompatActivity {
         mListContainer = findViewById(R.id.container);
         final int screenWidth = this.getResources().getDisplayMetrics().widthPixels;
         for(int i = 0; i < 3; i++) {
-            ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.content_layout, mListContainer, false);
+            ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.content_layout_2, mListContainer, false);
             layout.getLayoutParams().width = screenWidth;
             TextView title = layout.findViewById(R.id.title);
             title.setText("第" + i + "页");
@@ -40,6 +40,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private void createList(ViewGroup layout) {
         ListViewTwo listView = layout.findViewById(R.id.list);
+        listView.setmHorizontalSrollView(mListContainer);
         ArrayList<String> data = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             data.add("num " + i);

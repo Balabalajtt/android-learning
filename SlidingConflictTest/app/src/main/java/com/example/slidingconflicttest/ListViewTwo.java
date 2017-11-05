@@ -29,6 +29,10 @@ public class ListViewTwo extends ListView {
         super(context, attrs, defStyleAttr);
     }
 
+    public void setmHorizontalSrollView(HorizontalScrollViewTwo mHorizontalSrollView) {
+        this.mHorizontalSrollView = mHorizontalSrollView;
+    }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         int x = (int) ev.getX();
