@@ -18,6 +18,7 @@ import com.example.mvptest.R;
 
 /**
  * Created by 江婷婷 on 2017/11/6.
+ * 实现View接口
  */
 
 public class IpInfoFragment extends Fragment implements IpInfoContract.View {

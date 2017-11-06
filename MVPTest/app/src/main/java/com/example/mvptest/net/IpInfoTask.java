@@ -1,5 +1,7 @@
 package com.example.mvptest.net;
 
+import android.util.Log;
+
 import com.example.mvptest.model.IpInfo;
 import com.example.mvptest.LoadTasksCallBack;
 
@@ -9,10 +11,12 @@ import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
  * Created by 江婷婷 on 2017/11/6.
+ * NetTask实现类
  */
 
 public class IpInfoTask implements NetTask<String> {
 
+    private static final String TAG = "IpInfoTask";
     private static IpInfoTask INSTANCE = null;
     private static final String HOST = "http://ip.taobao.com/service/getIpInfo.php";
     private LoadTasksCallBack loadTasksCallBack;
@@ -28,6 +32,7 @@ public class IpInfoTask implements NetTask<String> {
         return INSTANCE;
     }
 
+    //调用LoadTasksCallBack方法
     @Override
     public void execute(String ip, final LoadTasksCallBack loadTasksCallBack) {
         RequestParams requestParams = new RequestParams();
@@ -54,6 +59,7 @@ public class IpInfoTask implements NetTask<String> {
             @Override
             public void onFailure(int errorCode, String msg) {
                 super.onFailure(errorCode, msg);
+                Log.d(TAG, "onFailure: " + msg);
                 loadTasksCallBack.onFailed();
             }
         });

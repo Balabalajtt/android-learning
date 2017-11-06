@@ -6,6 +6,7 @@ import com.example.mvptest.net.NetTask;
 
 /**
  * Created by 江婷婷 on 2017/11/6.
+ * 实现Presenter接口
  */
 
 public class IpInfoPresenter implements IpInfoContract.Presenter, LoadTasksCallBack<IpInfo> {

@@ -24,7 +24,11 @@ public class IpInfoActivity extends AppCompatActivity {
                     ipInfoFragment, R.id.fm_content);
         }
         IpInfoTask ipInfoTask = IpInfoTask.getInstance();
+        //互相注入
+        //传入fragment给Presenter，接口的View继承的BaseView View--注入-->Presenter
+        //传入ipInfoTask给Presenter Model--注入-->Presenter
         ipInfoPresenter = new IpInfoPresenter(ipInfoFragment, ipInfoTask);
+        //(上一步注入好的Model)<--调用--Presenter--注入-->View
         ipInfoFragment.setPresenter(ipInfoPresenter);
     }
 }
