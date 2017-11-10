@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/bitmap_drawable" />
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/shape_drawable" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/layer_drawable"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/state_list_drawable"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/state_list_drawable"/>
+
+        <ImageView
+            android:id="@+id/iv_level_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/level_list_drawable"/>
+
+        <Button
+            android:id="@+id/bt_level_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/level_list_drawable"/>
+
+        <TextView
+            android:id="@+id/tv_translation"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/transition_drawable"/>
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/inset_drawable"/>
+
+        <View
+            android:id="@+id/v_scale"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/scale_drawable"/>
+
+        <View
+            android:id="@+id/v_clip"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/clip_drawable"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/info"/>
+
+    </LinearLayout>
+
+</ScrollView>

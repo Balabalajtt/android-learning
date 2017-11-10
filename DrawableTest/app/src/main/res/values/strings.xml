@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DrawableTest</string>
+    <string name="info">BitmapDrawable ShapeDrawable LayerDrawable  StateListDrawable StateListDrawable  LevelListDrawable LevelListDrawable  TransitionDrawable InsetDrawable  ScaleDrawable ClDrawer</string>
+</resources>
