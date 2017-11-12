@@ -1,5 +1,6 @@
 package com.example.drawabletest;
 
+import android.content.Intent;
 import android.graphics.drawable.TransitionDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView t;
     private View vs;
     private View vc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,5 +70,12 @@ public class MainActivity extends AppCompatActivity {
         vs.getBackground().setLevel(1000);
         vc = findViewById(R.id.v_clip);
         vc.getBackground().setLevel(8000);
+        vc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, PhotoViewActivity.class));
+            }
+        });
+
     }
 }
