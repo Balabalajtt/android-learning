@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -43,7 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 }, mLocalImages)
                 .setPageIndicator(new int[]{R.drawable.dark,
                         R.drawable.light})
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Toast.makeText(MainActivity.this, "" + position,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+        mConvenientBanner.startTurning(2000);
 //        mConvenientBanner.setManualPageable(false);//设置不能手动影响
 
     }
