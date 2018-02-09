@@ -1,5 +1,7 @@
-package com.example.dagger2test;
+package com.example.dagger2test.module;
 
+import com.example.dagger2test.Cloth;
+import com.example.dagger2test.Clothes;
 import com.example.dagger2test.annotation.PerActivity;
 import com.example.dagger2test.annotation.RedCloth;
 
