@@ -8,28 +8,35 @@
     android:layout_height="match_parent"
     tools:context="com.example.texttest.MainActivity">
 
-    <com.example.texttest.MyTextView
-        android:id="@+id/myTextView"
-        android:textSize="16sp"
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
+    <TextView
         android:id="@+id/mTextView"
-        android:textSize="16sp"
-        android:layout_margin="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textIsSelectable="true"
-        android:textColorHighlight="@color/colorPrimary"
-        />
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        android:lineSpacingExtra="4dp"/>
 
-    <com.example.texttest.AlignTextView
-        android:id="@+id/mEditText"
-        android:textSize="16sp"
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <!--<com.example.texttest.MyTextView-->
+        <!--android:id="@+id/myTextView"-->
+        <!--android:textSize="16sp"-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/mTextView"-->
+        <!--android:textSize="16sp"-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textIsSelectable="true"-->
+        <!--android:textColorHighlight="@color/colorPrimary"-->
+        <!--/>-->
+
+    <!--<com.example.texttest.AlignTextView-->
+        <!--android:id="@+id/mEditText"-->
+        <!--android:textSize="16sp"-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 
 </LinearLayout>
