@@ -1,11 +1,13 @@
-package com.utte.oopsixprinciple.srp.loader;
+package com.utte.oopsixprinciple.loader;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.ImageView;
+
+import com.utte.oopsixprinciple.loader.cache.ImageCache;
+import com.utte.oopsixprinciple.loader.cache.MemoryCache;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -18,26 +20,38 @@ import java.util.concurrent.Executors;
  */
 
 public class ImageLoader {
-    ImageCache mImageCache = new ImageCache();
-    ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-    Handler mUiHandler = new Handler(Looper.getMainLooper());
+    private ImageCache mImageCache = new MemoryCache();
+    private ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    private Handler mUiHandler = new Handler(Looper.getMainLooper());
+
+    public void setImageCache(ImageCache imageCache) {
+        mImageCache = imageCache;
+    }
 
     public void displayImage(final String url, final ImageView imageView) {
+        Bitmap bitmap = mImageCache.get(url);
+        if (bitmap != null) {
+            updateImageView(imageView, bitmap);
+            return;
+        }
+
+        submitLoadRequest(url, imageView);
+
+    }
+
+    private void submitLoadRequest(final String url, final ImageView imageView) {
         imageView.setTag(url);
         mExecutorService.submit(new Runnable() {
             @Override
             public void run() {
-                Bitmap bitmap = mImageCache.get(url);
+                Bitmap bitmap = downloadImage(url);
                 if (bitmap == null) {
-                    bitmap = downloadImage(url);
-                    if (bitmap == null) {
-                        return;
-                    }
-                    mImageCache.put(url, bitmap);
+                    return;
                 }
                 if (imageView.getTag().equals(url)) {
                     updateImageView(imageView, bitmap);
                 }
+                mImageCache.put(url, bitmap);
             }
         });
     }
