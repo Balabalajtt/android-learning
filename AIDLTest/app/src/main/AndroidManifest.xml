@@ -2,11 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.utte.aidltest">
 
-    <!--<permission android:name="com.utte.aidltest.aidl.ACCESS_BOOK_SERVICE"-->
-        <!--android:protectionLevel="normal"/>-->
-
-    <!--<uses-permission android:name="com.utte.aidltest.aidl.ACCESS_BOOK_SERVICE"/>-->
-
+    <!-- <permission android:name="com.utte.aidltest.aidl.ACCESS_BOOK_SERVICE" -->
+    <!-- android:protectionLevel="normal"/> -->
+    <!-- <uses-permission android:name="com.utte.aidltest.aidl.ACCESS_BOOK_SERVICE"/> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,17 +12,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".messenger.MessengerActivity">
-        </activity>
+        <activity android:name=".messenger.MessengerActivity" />
 
         <service
             android:name=".messenger.MessengerService"
             android:process=":remote" />
         <service
-            android:name="com.utte.kkk.BookManagerService"
+            android:name=".aidl.BookManagerService"
             android:process=":rremote" />
 
         <activity android:name=".aidl.BookManagerActivity">
+        </activity>
+
+        <service
+            android:name=".pool.BinderPoolService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".pool.BinderPoolActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

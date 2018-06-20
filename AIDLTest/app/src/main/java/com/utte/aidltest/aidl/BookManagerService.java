@@ -1,4 +1,4 @@
-package com.utte.kkk;
+package com.utte.aidltest.aidl;
 
 import android.app.Service;
 import android.content.Intent;

@@ -16,7 +16,6 @@ import com.utte.aidltest.Book;
 import com.utte.aidltest.IBookManager;
 import com.utte.aidltest.IOnNewBookArrivedListener;
 import com.utte.aidltest.R;
-import com.utte.kkk.BookManagerService;
 
 import java.util.List;
 
