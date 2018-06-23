@@ -21,8 +21,7 @@
             android:name=".aidl.BookManagerService"
             android:process=":rremote" />
 
-        <activity android:name=".aidl.BookManagerActivity">
-        </activity>
+        <activity android:name=".aidl.BookManagerActivity"></activity>
 
         <service
             android:name=".pool.BinderPoolService"
@@ -30,12 +29,20 @@
             android:exported="true" />
 
         <activity android:name=".pool.BinderPoolActivity">
+        </activity>
+
+        <provider
+            android:name=".provider.BookProvider"
+            android:authorities="com.utte.aidltest.provider.BookProvider"
+            android:permission="com.utte.PROVIDER"
+            android:process=":provider" />
+
+        <activity android:name=".provider.BookProviderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            </intent-filter></activity>
     </application>
 
 </manifest>
