@@ -1,0 +1,175 @@
+apply plugin: 'com.android.application'
+
+// buildDir是app module下的build文件夹
+def bakPath = file("${buildDir}/bakApk")
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'utte'
+            keyPassword '123456'
+            storeFile file('E:/android-learning/TinkerTest/outputs/tinkertest.jks')
+            storePassword '123456'
+        }
+    }
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.utte.tinkertest"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+    }
+    buildTypes {
+        release {
+            // 混淆
+            minifyEnabled false
+//            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    //可选，用于生成application类
+    // compileOnly意思是此依赖只参与编译不参与apk打包
+    compileOnly "com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}"
+    //tinker的核心库
+    implementation "com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}"
+    // 使应用支持多dex文件
+    implementation 'com.android.support:multidex:1.0.3'
+
+    // OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+}
+
+ext {
+    // 本次编译是否启用Tinker
+    tinkerEnable = true
+    // 三个路径，根据生成的文件在bakApk目录下的备份来填
+//    tinkerOldApkPath = "${bakPath}/"
+//    tinkerApplyMappingPath = "${bakPath}/"
+//    tinkerApplyResourceMappingPath = "${bakPath}/"
+    tinkerOldApkPath = "${bakPath}/app-release-1010-23-17-55.apk"
+//    tinkerApplyMappingPath = "${bakPath}/app-release-1007-19-13-42-mapping.txt"
+    tinkerApplyResourceMappingPath = "${bakPath}/app-release-1010-23-17-55-R.txt"
+    tinkerId = "1.0"
+}
+
+def buildWithTinker() {
+    return ext.tinkerEnable
+}
+def getOldApkPath() {
+    return ext.tinkerOldApkPath;
+}
+//def getApplyMappingPath() {
+//    return ext.tinkerApplyMappingPath;
+//}
+def getApplyResourceMappingPath() {
+    return ext.tinkerApplyResourceMappingPath;
+}
+def getTinkerIdValue() {
+    return ext.tinkerId;
+}
+
+// 如果启用了Tinker
+if (buildWithTinker()) {
+    // 引入Tinker包,只有引入了才可以在下面写配置
+    apply plugin: 'com.tencent.tinker.patch'
+
+    // 开始所有Tinker相关的配置
+    tinkerPatch {
+        tinkerEnable = buildWithTinker() // 是否打开Tinker
+        oldApk = getOldApkPath() // 指定oldApk的版本路径
+        ignoreWarning = false // 设置编译期间出现警告时不忽略错误，终止编译
+        useSign = true // 设置patch文件使用签名
+
+        // 开始分模块配置
+        buildConfig {
+//            applyMapping = getApplyMappingPath() // 指定apk打包使用的混淆文件
+            applyResourceMapping = getApplyResourceMappingPath() // 指定old apk的资源文件
+            tinkerId = getTinkerIdValue() // 指定TinkerId
+            keepDexApply = false
+        }
+        dex {
+            // jar模式可以支持到sdk14以下，而raw模式只支持14以上。
+            // raw模式下的tinker直接处理dex文件，jar模式下会先将dex打包成jar再处理，patch文件体积会小一些。
+            dexMode = "jar"// 指定处理的dex文件格式
+            // class*.dex是对apk所有dex文件的通配
+            pattern = ["classes*.dex", "assets/secondary-dex-?.jar"]//指定tinker需要处理的dex文件的目录
+            loader = ["com.utte.tinkertest.MyTinkerApplication"]// 指定加载Tinker所用到的类
+        }
+        lib {
+            pattern = ["libs/*/*.so"]// 指定所用到的lib
+        }
+        res {
+            pattern = ["res/*", "assets/*", "resources.arsc", "AndroidManifest.xml"]// 指定Tinker可以修改的所有资源路径
+            // 也可以用ignoreChange指定即使修改也不生效的资源路径
+            largeModSize = 100 // 如果patch文件大小超过100k，Tinker会使用bsdiff算法去减少补丁体积
+        }
+        packageConfig {
+            // 用来说明patch文件的信息
+            configField("patchMessage", "fix the 1.0 version bugs")
+            configField("patchVersion", "1.0")
+        }
+
+    }
+
+    // 判断是否多渠道打包
+    List<String> flavors = new ArrayList<>();
+    project.android.productFlavors.each { flavor ->
+        flavors.add(flavor.name)
+    }
+    boolean hasFlavors = flavors.size() > 0
+    def date = new Date().format("MMdd-HH-mm-ss")
+    // 拷贝文件 会将相关文件拷贝到bakPath目录下
+    android.applicationVariants.all { variant ->
+        /**
+         * task type, you want to bak
+         */
+        def taskName = variant.name
+
+        tasks.all {
+            if ("assemble${taskName.capitalize()}".equalsIgnoreCase(it.name)) {
+
+                it.doLast {
+                    copy {
+                        def fileNamePrefix = "${project.name}-${variant.baseName}"
+                        def newFileNamePrefix = hasFlavors ? "${fileNamePrefix}" : "${fileNamePrefix}-${date}"
+                        // 判断是否多渠道打包，如果没有就直接到bakPath
+                        def destPath = hasFlavors ? file("${bakPath}/${project.name}-${date}/${variant.flavorName}") : bakPath
+                        // 拷贝apk
+                        from variant.outputs.first().outputFile
+                        into destPath
+                        rename { String fileName ->
+                            fileName.replace("${fileNamePrefix}.apk", "${newFileNamePrefix}.apk")
+                        }
+                        // 拷贝mapping.txt
+                        from "${buildDir}/outputs/mapping/${variant.dirName}/mapping.txt"
+                        into destPath
+                        rename { String fileName ->
+                            fileName.replace("mapping.txt", "${newFileNamePrefix}-mapping.txt")
+                        }
+                        // 拷贝R.txt
+                        from "${buildDir}/intermediates/symbols/${variant.dirName}/R.txt"
+                        into destPath
+                        rename { String fileName ->
+                            fileName.replace("R.txt", "${newFileNamePrefix}-R.txt")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
